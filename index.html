@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My PuchuBear 🐨💖</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background-color: #ffe4e1;
+            color: #ff4081;
+            margin: 0;
+            padding: 50px 20px;
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 2.2em;
+            font-weight: bold;
+        }
+        p {
+            font-size: 1.3em;
+        }
+        .btn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin: 10px;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+            background-color: #ff0057;
+        }
+        .input-box {
+            display: none;
+            margin-top: 20px;
+        }
+        .input-box input {
+            padding: 10px;
+            font-size: 1.1em;
+            width: 80%;
+            border-radius: 10px;
+            border: 1px solid #ff4081;
+            text-align: center;
+        }
+        .love-letter, .hug-game {
+            display: none;
+            font-size: 1.2em;
+            margin-top: 20px;
+            background: #fff3f3;
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp 2s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+        }
+        .hug-meter {
+            width: 300px;
+            height: 30px;
+            background: #ffd1dc;
+            border-radius: 20px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .hug-bar {
+            width: 0%;
+            height: 100%;
+            background: #ff4081;
+            border-radius: 20px;
+            transition: width 0.1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Good morning, PuchuBear! 🐨💖</h1>
+    <p>I love you so much. Here we go! Are you ready for this? 😘</p>
+
+    <div class="container">
+        <p id="question">Do you love me? 🥺</p>
+        <div id="buttons">
+            <button class="btn" onclick="nextQuestion()">YES 💖</button>
+        </div>
+        <div class="input-box" id="inputBox">
+            <input type="text" id="answerInput" placeholder="Type your answer here">
+            <button class="btn" onclick="nextQuestion()">Next ➡️</button>
+        </div>
+    </div>
+
+    <div class="hug-game" id="hugGame">
+        <p>Tap the button as fast as you can to fill the hug meter! 🤗💖</p>
+        <div class="hug-meter">
+            <div class="hug-bar" id="hugBar"></div>
+        </div>
+        <button class="btn" onclick="fillHugMeter()">Tap to Hug! 🤗</button>
+    </div>
+
+    <div class="love-letter" id="loveLetter">
+        <p>Dear PuchuBear 🐨,</p>
+        <p>You are the most amazing, adorable, and sweetest person ever. Every moment with you is a dream, and I love you more than words can say. 💕</p>
+        <p>Now that you've answered all my questions, you officially belong to me forever! 😘</p>
+        <p>Love,  
+        Your little Bububear 💖</p>
+        <p>I love you, Pinky tan90.</p>
+    </div>
+
+    <script>
+        let questions = [
+            "Do you love me? 🥺",
+            "How much do you love me? 😘",
+            "Really? 😳",
+            "Pinky promise? 🤞",
+            "I love you too, my PuchuBear! 💖"
+        ];
+        let index = 0;
+        let hugProgress = 0;
+
+        function createHeartBurst() {
+            for (let i = 0; i < 5; i++) {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = Math.random() > 0.5 ? "💖" : "🐨";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.top = Math.random() * 50 + "vh";
+                heart.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+
+        function nextQuestion() {
+            createHeartBurst();
+
+            if (index < questions.length - 1) {
+                index++;
+                document.getElementById("question").innerText = questions[index];
+
+                if (index === 1 || index === 2 || index === 3) {
+                    document.getElementById("buttons").style.display = "none";
+                    document.getElementById("inputBox").style.display = "block";
+                    document.getElementById("answerInput").value = ""; // Clears input box
+                    document.getElementById("answerInput").focus();
+                } else {
+                    document.getElementById("buttons").style.display = "block";
+                    document.getElementById("inputBox").style.display = "none";
+                }
+            } else {
+                document.querySelector(".container").style.display = "none";
+                document.getElementById("hugGame").style.display = "block";
+            }
+        }
+
+        function fillHugMeter() {
+            if (hugProgress < 100) {
+                hugProgress += 10;
+                document.getElementById("hugBar").style.width = hugProgress + "%";
+
+                if (hugProgress === 100) {
+                    setTimeout(() => {
+                        document.getElementById("hugGame").style.display = "none";
+                        document.getElementById("loveLetter").style.display = "block";
+                        setInterval(createHeartBurst, 300);
+                    }, 500);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
